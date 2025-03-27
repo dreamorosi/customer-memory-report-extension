@@ -62,6 +62,9 @@ The extension then correlates the `requestId` from the initial log message with 
 
 The extension also emits a CloudWatch metric with the specified name and namespace if the `CUSTOMER_MEMORY_REPORT_METRIC_ENABLED` environment variable is set to `true`. The metric will contain the memory usage for the specified customer/tenant and can be used to monitor the memory usage in CloudWatch.
 
+> [!Note]
+> Because of how the Telemetry API works and the fact that it's asynchronous, it's possible that the extension will report the memory usage for a request during the next invoke or during the shutdown of the Lambda function. This is expected behavior and most evident during tests.
+
 ## Credits
 
 This extension was inspired by this [blog post](https://danwakeem.medium.com/simplifying-internal-aws-lambda-apis-25a26ab9070e).

@@ -53,6 +53,7 @@ const startServer = () => {
               } = log;
               const request = requestBag.get(requestId);
               if (request) {
+                logger.debug('found request in bag', { request });
                 logger.info({
                   message: 'Customer memory report',
                   requestId,
