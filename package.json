@@ -1,0 +1,18 @@
+{
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
+    "@types/aws-lambda": "8.10.148",
+    "@types/node": "^22.13.14",
+    "esbuild": "^0.25.1",
+    "typescript": "^5.8.2"
+  },
+  "type": "module",
+  "dependencies": {
+    "@aws-lambda-powertools/logger": "^2.17.0",
+    "@aws-lambda-powertools/metrics": "^2.17.0"
+  },
+  "scripts": {
+    "deploy": "aws lambda publish-layer-version --layer-name 'nodejs-example-telemetry-api-extension' --zip-file 'fileb://src/out/customer-memory-report-extension.zip' --output json | jq -r '.LayerVersionArn'",
+    "predeploy": "esbuild --bundle src/customer-memory-report-extension/index.ts --platform=node --packages=bundle --format=esm --outfile=src/out/customer-memory-report-extension/index.mjs && cd src/out && zip -r customer-memory-report-extension.zip customer-memory-report-extension ../extensions && cd ../.."
+  }
+}
